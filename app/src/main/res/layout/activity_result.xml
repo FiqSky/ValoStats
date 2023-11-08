@@ -1,0 +1,40 @@
+<!-- res/layout/activity_result.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/rankImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/radiant"
+        android:contentDescription="Rank Image" />
+
+    <TextView
+        android:id="@+id/rankTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rank: Silver 3"
+        android:textSize="24sp"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:id="@+id/rrTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RR: 60"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/mmrEloTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MMR Elo: 860"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
