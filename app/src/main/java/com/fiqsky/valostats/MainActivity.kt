@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("rank", rankData.rank)
                     intent.putExtra("rr", rankData.rr)
                     intent.putExtra("mmrElo", rankData.mmrElo)
+                    intent.putExtra("nickname", nickname)
+                    intent.putExtra("tag", tag)
                     startActivity(intent)
                 } else {
                     Toast.makeText(this@MainActivity, "Failed to fetch Valorant rank.", Toast.LENGTH_SHORT).show()

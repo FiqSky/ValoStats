@@ -1,12 +1,24 @@
 package com.fiqsky.valostats
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
+import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
+import android.graphics.BitmapShader
+import android.graphics.Color
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
+import android.graphics.Paint
+import android.graphics.Shader
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class ResultActivity : AppCompatActivity() {
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
@@ -15,16 +27,39 @@ class ResultActivity : AppCompatActivity() {
         val rankTextView = findViewById<TextView>(R.id.rankTextView)
         val rrTextView = findViewById<TextView>(R.id.rrTextView)
         val mmrEloTextView = findViewById<TextView>(R.id.mmrEloTextView)
+        val nicknameTextView = findViewById<TextView>(R.id.nicknameTextView)
 
         // Mendapatkan nilai-nilai dari intent
         val rank = intent.getStringExtra("rank") ?: ""
         val rr = intent.getIntExtra("rr", 0)
         val mmrElo = intent.getIntExtra("mmrElo", 0)
+        val nickname = intent.getStringExtra("nickname") ?: ""
+        val tag = intent.getStringExtra("tag") ?: ""
+
+        val colors = intArrayOf(
+            Color.RED, Color.GREEN, Color.BLUE, Color.BLACK, Color.MAGENTA
+        )
+
+        val colorAnimator = ValueAnimator()
+        colorAnimator.setIntValues(*colors)
+        colorAnimator.setEvaluator(ArgbEvaluator())
+        colorAnimator.duration = 10000
+        colorAnimator.repeatMode = ValueAnimator.REVERSE
+        colorAnimator.repeatCount = ValueAnimator.INFINITE
+        colorAnimator.interpolator = AccelerateDecelerateInterpolator()
+
+        colorAnimator.addUpdateListener { animator ->
+            val animatedColor = animator.animatedValue as Int
+            nicknameTextView.setTextColor(animatedColor)
+        }
+
+        colorAnimator.start()
 
         // Set teks pada TextView
         rankTextView.text = "Rank: $rank"
         rrTextView.text = "RR: $rr"
         mmrEloTextView.text = "MMR Elo: $mmrElo"
+        nicknameTextView.text = "$nickname#$tag"
 
         Log.d("RankDebug", "Received rank: $rank")
 
@@ -59,7 +94,32 @@ class ResultActivity : AppCompatActivity() {
             else -> R.drawable.radiant // Gambar default jika tidak ada yang cocok
         }
 
-        rankImageView.setImageResource(rankImageResource)
+        applySharpeningEffect(rankImageView, rankImageResource)
+    }
+
+    fun applySharpeningEffect(imageView: ImageView, resourceId: Int) {
+        val bitmap = BitmapFactory.decodeResource(resources, resourceId)
+
+        // Membuat BitmapShader dari gambar
+        val shader = BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+
+        // Menerapkan efek sharpening menggunakan ColorMatrix
+        val paint = Paint()
+        paint.shader = shader
+
+        val sharpenMatrix = ColorMatrix()
+        sharpenMatrix.set(floatArrayOf(
+            -1f, -1f, -1f, -1f, -1f,
+            -1f, 9f, -1f, -1f, -1f,
+            -1f, -1f, -1f, -1f, -1f,
+            -1f, -1f, -1f, 16f, -1f
+        ))
+
+        val colorMatrixColorFilter = ColorMatrixColorFilter(sharpenMatrix)
+        paint.colorFilter = colorMatrixColorFilter
+
+        // Menerapkan gambar yang telah diberi efek ke ImageView
+        imageView.setImageBitmap(bitmap)
     }
 
     override fun onDestroy() {

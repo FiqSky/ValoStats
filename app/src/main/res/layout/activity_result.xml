@@ -1,40 +1,71 @@
 <!-- res/layout/activity_result.xml -->
 <LinearLayout
+    android:id="@+id/LinearLayoutResult"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
 
+    <!-- ImageView diberikan efek transparansi -->
     <ImageView
         android:id="@+id/rankImageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:src="@drawable/radiant"
-        android:contentDescription="Rank Image" />
+        android:contentDescription="Rank Image"
+        android:alpha="0.8" />
 
+    <!-- TextView untuk Nickname diberikan efek bayangan dan font gaming -->
+    <!-- res/layout/activity_result.xml -->
+    <TextView
+        android:id="@+id/nicknameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nickname#Tag"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/techno"/>
+
+    <!-- TextView untuk Rank -->
     <TextView
         android:id="@+id/rankTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/valorantfont"
         android:text="Rank: Silver 3"
-        android:textSize="24sp"
-        android:layout_marginTop="24dp" />
+        android:layout_marginBottom="5dp"
+        android:textSize="24sp" />
 
+    <!-- TextView untuk RR -->
     <TextView
         android:id="@+id/rrTextView"
         android:layout_width="wrap_content"
+        android:fontFamily="@font/valorantfont"
         android:layout_height="wrap_content"
         android:text="RR: 60"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginBottom="5dp"
+        android:textSize="18sp" />
 
+    <!-- TextView untuk MMR Elo -->
     <TextView
         android:id="@+id/mmrEloTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/valorantfont"
         android:text="MMR Elo: 860"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        android:textSize="18sp" />
+
+    <!-- Elemen dekoratif gaming, misalnya garis -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#00FF00" />
+
+    <!-- Tambahan elemen dekoratif gaming lainnya dapat ditambahkan di sini -->
+
 </LinearLayout>
